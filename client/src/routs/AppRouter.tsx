@@ -28,8 +28,8 @@ const AppRouter = () => {
           element: <HomePage />,
         },
         {
-          path: "products",
-          element: <ProductsPage />,
+          path: "products/:category-slug",
+          element: <ProductsPage />
         },
         {
           path: "product-details/:id",
