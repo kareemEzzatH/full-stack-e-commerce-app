@@ -13,10 +13,6 @@ export const categoriesApi = apiSlice.injectEndpoints({
           image: {
             url: `${import.meta.env.VITE_IMAGE_BASE_URL}${category.image?.url}`,
           },
-<<<<<<< Updated upstream
-=======
-          slug:category.slug
->>>>>>> Stashed changes
         })),
       providesTags: ["Category"],
     }),

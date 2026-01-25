@@ -18,16 +18,13 @@
     "slug": {
       "type": "uid",
       "targetField": "title",
-      "required": true
-    },
-    "Description": {
-      "type": "blocks"
+      "required": false
     },
     "price": {
       "type": "decimal",
       "required": true
     },
-    "Stock": {
+    "stock": {
       "type": "integer",
       "required": true
     },
@@ -63,6 +60,15 @@
       "type": "boolean",
       "required": true,
       "default": false
+    },
+    "isLiked": {
+      "type": "boolean"
+    },
+    "rating": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

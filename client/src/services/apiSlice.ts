@@ -4,6 +4,6 @@ import { baseQueryWithErrorHandling } from './baseQueryWithErrorHandling'
 export const apiSlice = createApi({
     reducerPath: 'api',
     baseQuery: baseQueryWithErrorHandling,
-    tagTypes:['Category'],
+    tagTypes:['Category','Product'],
     endpoints: () => ({}),
 });
