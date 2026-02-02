@@ -1,6 +1,9 @@
 import { Suspense, lazy } from "react";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { MainLayout } from "@/layouts";
+const ProductsLayout=lazy(()=>import('@layouts/Products-layout/ProductsLayout'))
+const UserLayout = lazy(() => import("@layouts/user-layout/UserLayout"));
+
 // Lazy load all pages in one place
 const HomePage = lazy(() => import("@/pages/unauth/HomePage"));
 const ProductsPage = lazy(() => import("@/pages/unauth/ProductsPage"));
@@ -10,7 +13,6 @@ const ProductDetailsPage = lazy(
 const LoginPage = lazy(() => import("@/pages/unauth/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/unauth/RegisterPage"));
 const CartPage = lazy(() => import("@/pages/unauth/CartPage"));
-const UserLayout = lazy(() => import("@layouts/user-layout/UserLayout"));
 const ProfilePage = lazy(() => import("@/pages/auth/ProfilePage"));
 const WishlistPage = lazy(() => import("@/pages/auth/WishlistPage"));
 const OrdersPage = lazy(() => import("@/pages/auth/OrdersPage"));
@@ -27,10 +29,7 @@ const AppRouter = () => {
           index: true,
           element: <HomePage />,
         },
-        {
-          path: "products/:category-slug",
-          element: <ProductsPage />
-        },
+
         {
           path: "product-details/:id",
           element: <ProductDetailsPage />,
@@ -65,6 +64,21 @@ const AppRouter = () => {
             },
           ],
         },
+        {
+          path:'products',
+          element:<ProductsLayout/>,
+          children:[
+            {
+              index:true,
+              element: <ProductsPage />
+            },
+            {
+              path: ":category-documentId",
+              element: <ProductsPage />
+            },
+          ]
+
+        }
       ],
     },
   ]);

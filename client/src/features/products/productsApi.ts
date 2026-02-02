@@ -6,7 +6,8 @@ import { transformProduct } from "./utils/transformProduct";
 export const productsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllProducts: builder.query<TProduct[], void>({
-      query: () => "/products?populate[image][fields][0]=url&populate[category][fields][0]=slug",
+      query: () =>
+        "/products?populate[image][fields][0]=url&populate[category][fields][0]=slug&sort=createdAt:desc",
       transformResponse: (response: ApiResponse<any[]>) =>
         response.data.map(transformProduct),
       providesTags: (result) =>
@@ -21,7 +22,8 @@ export const productsApi = apiSlice.injectEndpoints({
           : [{ type: "Product", id: "LIST" }],
     }),
     getProductById: builder.query<TProduct, string>({
-      query: (documentId) => `/products/${documentId}?populate[image][fields][0]=url&populate[category][fields][0]=slug`,
+      query: (documentId) =>
+        `/products/${documentId}?populate[image][fields][0]=url&populate[category][fields][0]=slug`,
       transformResponse: (response: ApiResponse<any>) =>
         transformProduct(response.data),
       providesTags: (_result, _error, id) => [{ type: "Product", id }],
@@ -41,13 +43,22 @@ export const productsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [{ type: "Product", id: "LIST" }],
     }),
-    updateProduct: builder.mutation<TProduct, TProduct>({
-      query: (body) => ({
-        url: `/products/${body.documentId}`,
+    updateProduct: builder.mutation<
+      TProduct,
+      {
+        documentId: string;
+        data: Partial<Omit<TProduct, "documentId" | "image" | "category">>;
+      }
+    >({
+      query: ({ documentId, data }) => ({
+        url: `/products/${documentId}`,
         method: "PUT",
-        body: { data: body },
+        body: { data },
       }),
-      invalidatesTags: [{ type: "Product", id: "LIST" }],
+      invalidatesTags: (_result, _error, { documentId }) => [
+        { type: "Product", id: documentId },
+        { type: "Product", id: "LIST" },
+      ],
     }),
   }),
 });

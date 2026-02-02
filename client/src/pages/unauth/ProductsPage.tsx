@@ -1,10 +1,13 @@
+import { ProductsGridList,ProductsSearch } from "@/features"
 
 
 const ProductsPage = () => {
 
   return (
     <div>
-      products page
+      <ProductsSearch/>
+      <ProductsGridList/>
+
     </div>
   )
 }

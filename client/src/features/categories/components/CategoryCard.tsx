@@ -5,7 +5,7 @@ type CategoryCardProps = {
   name: string;
   image: string;
   slug:string
-};
+}; 
 const CategoryCard = memo(({ name, image,slug }: CategoryCardProps) => {
   return (
     <NavLink className="w-full sm:w-[240px] h-[280px]" to={`/products/${slug}`}>

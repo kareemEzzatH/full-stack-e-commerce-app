@@ -11,6 +11,5 @@ export type TProduct = {
     isLiked: boolean,
     isFeatured: boolean,
     image?: Image,
-    category?:string // API returns category object with slug
+    category:string // API returns category object with slug
 }
-

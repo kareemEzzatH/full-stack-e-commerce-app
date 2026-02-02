@@ -11,7 +11,7 @@ const CategoriesSideBar = () => {
     }
     return (
 
-        <Sidebar>
+        <Sidebar >
             <SidebarContent>
                 <SidebarGroup>
                     <SidebarGroupLabel>Categories List</SidebarGroupLabel>
@@ -21,7 +21,7 @@ const CategoriesSideBar = () => {
                             {isLoading?(<CategoriesListLoader/>):data && data.map((category) => (
                                 <SidebarMenuItem key={category.documentId}>
                                     <SidebarMenuButton asChild>
-                                        <NavLink to={`/products/${category.slug}`} >
+                                        <NavLink to={`/products/${category.documentId}`} >
 
                                             <span>{category.name}</span>
                                         </NavLink>
