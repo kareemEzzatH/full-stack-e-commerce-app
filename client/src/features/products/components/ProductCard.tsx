@@ -20,7 +20,7 @@ type TProductCardProp = {
 
 const starArray=new Array(5).fill(0)
 const ProductCard = memo(({ product }: TProductCardProp) => {
-  const [updateProduct, { isLoading }] = useUpdateProductMutation();
+  const [updateProduct] = useUpdateProductMutation();
 
   const likedToggle = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
