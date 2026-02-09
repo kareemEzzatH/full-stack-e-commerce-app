@@ -1,44 +1,22 @@
-import { useEffect, useState } from "react"
-import useDebounce from "@/hooks/useDebounce"
-import { ProductsGridList, ProductsSearch } from "@/features"
-import { useGetAllProductsQuery } from "@/features/products/productsApi"
-import type { TProduct } from "@/features/products/type"
-
+import { ProductsGridList, ProductsSearch } from "@/features";
+import {useProducts} from "@/features";
 
 const ProductsPage = () => {
-  const [searchValue, setSearchValue] = useState('')
-  const [filtredProduct, setFiltredProduct] = useState<TProduct[]>([])
-  const { debouncedValue } = useDebounce(searchValue, 400)
-  const { data } = useGetAllProductsQuery()
-  useEffect(() => {
-    if (!data) {
-      setFiltredProduct([])
-      return
-    }
-
-    const searchTerm = debouncedValue.toLowerCase().trim()
-
-    if (!searchTerm) {
-      setFiltredProduct(data) // Show all when empty
-      return
-    }
-
-    setFiltredProduct(
-      data.filter((product) =>
-        product.title.toLowerCase().includes(searchTerm)
-      )
-    )
-  }, [debouncedValue, data])
-
-  console.log(filtredProduct)
-
+  const { setSearchParams, inputParams, filteredProducts, isLoading, isError } =
+    useProducts();
   return (
     <div>
-      <ProductsSearch onChange={setSearchValue} />
-      <ProductsGridList products={filtredProduct} />
-
+      <ProductsSearch
+        setSearchParams={setSearchParams}
+        value={inputParams ?? ""}
+      />
+      <ProductsGridList
+        products={filteredProducts}
+        isLoading={isLoading}
+        isError={isError}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default ProductsPage
+export default ProductsPage;

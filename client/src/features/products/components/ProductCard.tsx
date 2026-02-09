@@ -61,7 +61,7 @@ const ProductCard = memo(({ product }: TProductCardProp) => {
           <div className="flex justify-between items-center ">
             <div className="flex">
               {starArray.map((_, i) => {
-                if (product.rating >= i) {
+                if (product.rating > i) {
                   return (
                     <FaStar key={i} className="text-[14px] text-amber-300  " />
                   );

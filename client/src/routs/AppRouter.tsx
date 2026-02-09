@@ -73,7 +73,7 @@ const AppRouter = () => {
               element: <ProductsPage />
             },
             {
-              path: ":category-documentId",
+              path: ":categoryId",
               element: <ProductsPage />
             },
           ]
