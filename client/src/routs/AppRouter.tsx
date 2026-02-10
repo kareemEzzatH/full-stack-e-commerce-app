@@ -31,7 +31,7 @@ const AppRouter = () => {
         },
 
         {
-          path: "product-details/:id",
+          path: "product-details/:productId",
           element: <ProductDetailsPage />,
         },
         {

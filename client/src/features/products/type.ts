@@ -1,4 +1,4 @@
-import type { Image, Category } from "../categories/type"
+import type { Image} from "../categories/type"
 
 // Type for fetched products (from API responses)
 export type TProduct = {

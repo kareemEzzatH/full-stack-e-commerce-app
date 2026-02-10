@@ -1,4 +1,4 @@
-import { memo,useCallback } from "react";
+import { memo, useCallback } from "react";
 import type { TProduct } from "../type";
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
@@ -18,23 +18,26 @@ type TProductCardProp = {
   product: TProduct;
 };
 
-const starArray=new Array(5).fill(0)
+const starArray = new Array(5).fill(0);
 const ProductCard = memo(({ product }: TProductCardProp) => {
   const [updateProduct] = useUpdateProductMutation();
 
-  const likedToggle = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const likedToggle = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
 
-    if (!product.documentId) return;
-    // ✅ Fire and forget - no loading state needed
-    updateProduct({
-      documentId: product.documentId,
-      data: {
-        isLiked: !product.isLiked,
-      },
-    });
-  }, [product.documentId, product.isLiked, updateProduct])
+      if (!product.documentId) return;
+      // ✅ Fire and forget - no loading state needed
+      updateProduct({
+        documentId: product.documentId,
+        data: {
+          isLiked: !product.isLiked,
+        },
+      });
+    },
+    [product.documentId, product.isLiked, updateProduct]
+  );
   return (
     <Card className="w-full sm:w-[260px] h-[370px]  transition-all duration-300  hover:shadow-lg p-0 ">
       <Link to={`../product-details/${product.documentId}`}>
@@ -58,7 +61,7 @@ const ProductCard = memo(({ product }: TProductCardProp) => {
           )}
         </div>
         <CardHeader>
-          <div className="flex justify-between items-center ">
+          <div className="flex justify-between items-center mt-1 ">
             <div className="flex">
               {starArray.map((_, i) => {
                 if (product.rating > i) {
@@ -66,7 +69,9 @@ const ProductCard = memo(({ product }: TProductCardProp) => {
                     <FaStar key={i} className="text-[14px] text-amber-300  " />
                   );
                 } else {
-                  return <CiStar key={i} className="text-[14px] text-gray-400" />;
+                  return (
+                    <CiStar key={i} className="text-[14px] text-gray-400" />
+                  );
                 }
               })}
             </div>
@@ -75,10 +80,13 @@ const ProductCard = memo(({ product }: TProductCardProp) => {
           </div>
         </CardHeader>
         <CardContent className="h-[100px]">
-          <h3 className="h2">{product.title}</h3>
+          <h3 className="font-bold">{product.title}</h3>
           <p className="text-small font-[100] text-gray-500">
             {product.description}
           </p>
+          <small className="w-full flex justify-end font-[200] mt-2">
+            {product.price}EGP
+          </small>
         </CardContent>
         <CardFooter className="flex justify-center items-center p-2">
           <Button className="w-full ">add to cart</Button>
